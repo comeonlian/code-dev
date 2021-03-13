@@ -46,6 +46,7 @@ public class Array011 {
                 {4, 5, 6},
                 {7, 8, 9}
         };
+        array011.println(matrix);
 
         array011.rotate(matrix);
 
@@ -70,12 +71,25 @@ public class Array011 {
                 // 四个点交换: 上、右、下、左
                 int tr = row, tc = col;
                 int rr = tc, rc = colLen - tr - 1;
-                int br, bc;
-                int lr, lc;
+                int br = rc, bc = colLen - rr - 1;
+                int lr = bc, lc = colLen - br - 1;
+                int top = matrix[tr][tc];
+                int right = matrix[rr][rc];
+                int bottom = matrix[br][bc];
+                int left = matrix[lr][lc];
+                matrix[tr][tc] = left;
+                matrix[rr][rc] = top;
+                matrix[br][bc] = right;
+                matrix[lr][lc] = bottom;
             }
         }
     }
 
+    /*
+    执行结果：通过
+    执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+    内存消耗：38.5 MB, 在所有 Java 提交中击败了59.94%的用户
+    */
 
     /**
      * @param matrix
@@ -83,7 +97,7 @@ public class Array011 {
     public void println(int[][] matrix) {
         for (int[] array : matrix) {
             for (int i : array) {
-                System.out.println(i + " ");
+                System.out.print(i + " ");
             }
             System.out.println();
         }
