@@ -9,4 +9,9 @@ public class String006 {
 
     }
 
+    public int myAtoi(String s) {
+
+        return 0;
+    }
+
 }
