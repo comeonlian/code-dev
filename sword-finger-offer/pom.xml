@@ -7,6 +7,7 @@
     <groupId>com.leolian</groupId>
     <artifactId>sword-finger-offer</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <description>剑指Offer</description>
     
     <properties>
         <java.version>1.8</java.version>
