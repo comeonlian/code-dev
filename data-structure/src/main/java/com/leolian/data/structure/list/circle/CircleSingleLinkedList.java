@@ -1,8 +1,5 @@
 package com.leolian.data.structure.list.circle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Lian
  * @description: 循环单向链表
@@ -56,54 +53,8 @@ public class CircleSingleLinkedList {
         }
     }
 
-
-    /**
-     * 解决约瑟夫问题
-     *
-     * @param nums    节点总个数
-     * @param startNo 开始报数的第k个节点
-     * @param countNo 出圈的第m个节点
-     */
-    public void josephu(int nums, int startNo, int countNo) {
-        if (startNo < 1 || startNo > nums) {
-            System.out.println("参数输入有误， 请重新输入");
-            return;
-        }
-        // 先构建环形链表
-        add(nums);
-        list();
-        // 初始化helper指针
-        Boy helper = first;
-        while (true) {
-            if (helper.getNext() == first) {
-                break;
-            }
-            helper = helper.getNext();
-        }
-        // 移动first helper指针k-1次
-        for (int i = 1; i < startNo; i++) {
-            first = first.getNext();
-            helper = helper.getNext();
-        }
-        // 开始报数移 first helper移动m-1
-        List<Integer> list = new ArrayList<>();
-        int moveCount = countNo - 1;
-        while (true) {
-            if (helper == first) {
-                break;
-            }
-            for (int i = 0; i < moveCount; i++) {
-                first = first.getNext();
-                helper = helper.getNext();
-            }
-            // 节点出圈
-            list.add(first.getNo());
-            first = first.getNext();
-            helper.setNext(first);
-        }
-        list.add(first.getNo());
-        System.out.println("出圈顺序: " + list);
+    public Boy getFirst() {
+        return first;
     }
-
-
+    
 }

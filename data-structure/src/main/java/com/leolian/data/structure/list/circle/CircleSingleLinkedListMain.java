@@ -12,8 +12,6 @@ public class CircleSingleLinkedListMain {
         
         // circleSingleLinkedList.add(5);
         // circleSingleLinkedList.list();
-        
-        circleSingleLinkedList.josephu(5, 2, 2);
     }
 
 }
