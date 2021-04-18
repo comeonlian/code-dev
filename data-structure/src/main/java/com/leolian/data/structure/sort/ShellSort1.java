@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 插入排序算法
+ * 希尔排序算法: 交换法实现
  */
-public class InsertSort {
+public class ShellSort1 {
 
     public static void main(String[] args) {
-        InsertSort insertSort = new InsertSort();
+        ShellSort1 shellSort1 = new ShellSort1();
 
 //        int[] arr = new int[]{
 //                9, -1, 10, -2, 8, 4, 5, 7, 1, 3, 6, 2
@@ -26,7 +26,7 @@ public class InsertSort {
         String date1Str = simpleDateFormat.format(data1);
         System.out.println("排序前的时间是=" + date1Str);
 
-        insertSort.sort(arr);
+        shellSort1.sort(arr);
 
         Date data2 = new Date();
         String date2Str = simpleDateFormat.format(data2);
@@ -35,18 +35,18 @@ public class InsertSort {
 //        System.out.println(Arrays.toString(arr));
     }
 
+
     public void sort(int[] arr) {
-        int insertIndex;
-        int insertVal;
-        for (int i = 1; i < arr.length; i++) {
-            insertVal = arr[i];
-            insertIndex = i - 1;
-            while (insertIndex >= 0 && insertVal < arr[insertIndex]) {
-                arr[insertIndex + 1] = arr[insertIndex];
-                insertIndex--;
-            }
-            if ((insertIndex + 1) != i) {
-                arr[insertIndex + 1] = insertVal;
+        int temp;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[j + gap]) {
+                        temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
             }
         }
     }

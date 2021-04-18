@@ -4,19 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 插入排序算法
+ * 希尔排序算法: 移位法实现
  */
-public class InsertSort {
+public class ShellSort2 {
 
     public static void main(String[] args) {
-        InsertSort insertSort = new InsertSort();
+        ShellSort2 shellSort2 = new ShellSort2();
 
 //        int[] arr = new int[]{
 //                9, -1, 10, -2, 8, 4, 5, 7, 1, 3, 6, 2
 //        };
 
         //创建要给 80000 个的随机的数组， 在我的机器是 2-3 秒，比冒泡快.
-        int length = 200000;
+        int length = 30000000;
         int[] arr = new int[length];
         for (int i = 0; i < length; i++) {
             arr[i] = (int) (Math.random() * length);
@@ -26,7 +26,7 @@ public class InsertSort {
         String date1Str = simpleDateFormat.format(data1);
         System.out.println("排序前的时间是=" + date1Str);
 
-        insertSort.sort(arr);
+        shellSort2.sort(arr);
 
         Date data2 = new Date();
         String date2Str = simpleDateFormat.format(data2);
@@ -38,15 +38,17 @@ public class InsertSort {
     public void sort(int[] arr) {
         int insertIndex;
         int insertVal;
-        for (int i = 1; i < arr.length; i++) {
-            insertVal = arr[i];
-            insertIndex = i - 1;
-            while (insertIndex >= 0 && insertVal < arr[insertIndex]) {
-                arr[insertIndex + 1] = arr[insertIndex];
-                insertIndex--;
-            }
-            if ((insertIndex + 1) != i) {
-                arr[insertIndex + 1] = insertVal;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                insertIndex = i;
+                insertVal = arr[insertIndex];
+                if (arr[insertIndex] < arr[insertIndex - gap]) {
+                    while ((insertIndex - gap) >= 0 && insertVal < arr[insertIndex - gap]) {
+                        arr[insertIndex] = arr[insertIndex - gap];
+                        insertIndex -= gap;
+                    }
+                    arr[insertIndex] = insertVal;
+                }
             }
         }
     }

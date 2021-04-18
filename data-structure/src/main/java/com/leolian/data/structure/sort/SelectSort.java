@@ -16,7 +16,7 @@ public class SelectSort {
 //        };
 
         //创建要给 80000 个的随机的数组， 在我的机器是 2-3 秒，比冒泡快.
-        int length = 100000;
+        int length = 200000;
         int[] arr = new int[length];
         for (int i = 0; i < length; i++) {
             arr[i] = (int) (Math.random() * length);
