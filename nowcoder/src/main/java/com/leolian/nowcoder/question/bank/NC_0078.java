@@ -32,6 +32,15 @@ public class NC_0078 {
         }
     }
 
+    static class ListNode {
+        int val;
+        ListNode next = null;
+
+        ListNode(int val) {
+            this.val = val;
+        }
+    }
+
     /**
      * @param head
      * @return
@@ -54,11 +63,3 @@ public class NC_0078 {
 
 }
 
-class ListNode {
-    int val;
-    ListNode next = null;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-}
