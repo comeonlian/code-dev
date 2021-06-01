@@ -1,8 +1,11 @@
 package com.leolian.nowcoder.question.company.shopee;
 
+/**
+ * 【LeetCode】有序旋转数组的查找（4）
+ * 
+ */
 public class InterviewCase {
-
-
+    
     public static void main(String[] args) {
         int[] array = {4, 5, 6, 7, 0, 1, 2};
         int k = 3;
@@ -22,8 +25,7 @@ public class InterviewCase {
         end = array.length - 1;
         return binarySearch(array, start, end, x);
     }
-
-
+    
     public static int binarySearch(int[] array, int start, int end, int val) {
         int mid = (start + end) / 2;
         if (val < array[mid]) {
