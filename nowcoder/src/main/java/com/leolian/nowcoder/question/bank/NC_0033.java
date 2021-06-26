@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.question.company.shopee;
+package com.leolian.nowcoder.question.bank;
 
 /**
  * NC 33 : 合并有序链表

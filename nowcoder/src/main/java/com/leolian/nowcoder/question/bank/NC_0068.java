@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.question.company.shopee;
+package com.leolian.nowcoder.question.bank;
 
 /**
  * NC 68 : 跳台阶

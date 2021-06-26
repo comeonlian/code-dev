@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.question.company.tencent;
+package com.leolian.nowcoder.question.bank;
 
 import java.util.Arrays;
 
