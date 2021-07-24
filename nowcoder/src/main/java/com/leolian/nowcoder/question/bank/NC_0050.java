@@ -1,5 +1,7 @@
 package com.leolian.nowcoder.question.bank;
 
+import java.util.Stack;
+
 /**
  * NC 50 : 链表中的节点每k个一组翻转
  * 题目描述
@@ -33,21 +35,11 @@ public class NC_0050 {
         node3.next = node4;
         node4.next = node5;
 
-        int k = 2;
-
+        int k = 6;
         ListNode resultNode = nc0050.reverseKGroup(head, k);
         while (resultNode != null) {
-            System.out.println(resultNode.val);
+            System.out.print(resultNode.val + " ");
             resultNode = resultNode.next;
-        }
-    }
-
-    static class ListNode {
-        int val;
-        ListNode next = null;
-
-        public ListNode(int val) {
-            this.val = val;
         }
     }
 
@@ -57,9 +49,77 @@ public class NC_0050 {
      * @return ListNode类
      */
     public ListNode reverseKGroup(ListNode head, int k) {
-        // write code here
-        // TODO
-        return null;
+        if (null == head) {
+            return null;
+        }
+        if (k == 0 || k == 1 || head.next == null) {
+            return head;
+        }
+        ListNode cur = head;
+        int size = 0;
+        while (cur != null) {
+            size = size + 1;
+            cur = cur.next;
+        }
+        if (k > size) {
+            return head;
+        }
+        Stack<Integer> stack = new Stack<>();
+        ListNode newHead = null;
+        ListNode newCur = null;
+        cur = head;
+        while (cur != null) {
+            if (stack.size() >= k) {
+                while (stack.size() > 0) {
+                    ListNode tmpNode = new ListNode(stack.pop());
+                    if (newHead == null) {
+                        newHead = tmpNode;
+                    } else {
+                        newCur.next = tmpNode;
+                    }
+                    newCur = tmpNode;
+                }
+                stack.push(cur.val);
+            } else {
+                stack.push(cur.val);
+            }
+            cur = cur.next;
+        }
+        if (stack.size() > 0) {
+            if ((stack.size() == k) && (newCur == null)) {
+                while (stack.size() > 0) {
+                    ListNode tmpNode = new ListNode(stack.pop());
+                    if (newCur == null) {
+                        newCur = tmpNode;
+                        newHead = tmpNode;
+                    } else {
+                        newCur.next = tmpNode;
+                        newCur = tmpNode;
+                    }
+                }
+            } else {
+                while (stack.size() > 0) {
+                    ListNode tmpNode = new ListNode(stack.pop());
+                    if (newCur.next == null) {
+                        newCur.next = tmpNode;
+                    } else {
+                        ListNode right = newCur.next;
+                        newCur.next = tmpNode;
+                        tmpNode.next = right;
+                    }
+                }
+            }
+        }
+        return newHead;
+    }
+
+    static class ListNode {
+        int val;
+        ListNode next = null;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
     }
 
 }
