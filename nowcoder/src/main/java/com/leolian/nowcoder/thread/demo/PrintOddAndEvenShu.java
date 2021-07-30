@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.demo.thread;
+package com.leolian.nowcoder.thread.demo;
 
 public class PrintOddAndEvenShu {
     private int value = 0;
