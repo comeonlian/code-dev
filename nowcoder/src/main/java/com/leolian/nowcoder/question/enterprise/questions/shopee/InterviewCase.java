@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.question.company.shopee;
+package com.leolian.nowcoder.question.enterprise.questions.shopee;
 
 /**
  * 【LeetCode】有序旋转数组的查找（4）

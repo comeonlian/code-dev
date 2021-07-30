@@ -1,4 +1,4 @@
-package com.leolian.nowcoder.question.company.tencent;
+package com.leolian.nowcoder.question.enterprise.questions.tencent;
 
 import java.util.LinkedList;
 import java.util.List;
