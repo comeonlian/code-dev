@@ -1,6 +1,6 @@
 package com.leolian.nowcoder.question.bank;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  * NC 41 : 最长无重复子数组
@@ -36,7 +36,7 @@ public class NC_0041 {
     public static void main(String[] args) {
         NC_0041 nc0041 = new NC_0041();
 
-        int[] arr = new int[]{2, 3, 4, 5};
+        int[] arr = new int[]{3, 3, 2, 1, 3, 3, 3, 1};
         System.out.println(nc0041.maxLength(arr));
     }
 
@@ -47,25 +47,20 @@ public class NC_0041 {
         if (arr.length == 1) {
             return 1;
         }
-        int maxLen = 0, count = 0;
-        int start = 0, end = 0;
-        HashSet<Integer> set = new HashSet<>(arr.length);
-        while (start < arr.length && end < arr.length) {
+        int maxLen = 0;
+        HashMap<Integer, Integer> map = new HashMap<>(arr.length);
+        for (int start = 0, end = 0; end < arr.length; end++) {
             int val = arr[end];
-            if (!set.contains(val)) {
-                set.add(val);
-                count++;
-                end++;
+            if (map.containsKey(val)) {
+                maxLen = Math.max(maxLen, end - start);
+                start = Math.max(start, map.get(val) + 1);
+                map.remove(val);
             } else {
-                if ((end - start) > maxLen) {
-                    maxLen = end - start;
-                }
-                start = end;
-                set.clear();
-                count = 0;
+                maxLen = Math.max(maxLen, end - start + 1);
             }
+            map.put(val, end);
         }
-        return Math.max(count, maxLen);
+        return maxLen;
     }
 
 }
