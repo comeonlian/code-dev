@@ -1,6 +1,4 @@
-package com.leolian.leetcode.questionbank.algorithm.page01;
-
-import java.util.List;
+package com.leolian.leetcode.questionbank.algorithm.medium;
 
 /**
  * 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，
@@ -12,7 +10,7 @@ import java.util.List;
  * 输出：7 -> 0 -> 8
  * 原因：342 + 465 = 807
  */
-public class LeetCode002 {
+public class LC_0002 {
 
     public static void main(String[] args) {
         ListNode l1 = new ListNode(2);

@@ -1,4 +1,4 @@
-package com.leolian.leetcode.questionbank.algorithm.page01;
+package com.leolian.leetcode.questionbank.algorithm.hard;
 
 /**
  * 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
@@ -13,7 +13,7 @@ package com.leolian.leetcode.questionbank.algorithm.page01;
  * nums2 = [3, 4]
  * 则中位数是 (2 + 3)/2 = 2.5
  */
-public class LeetCode004 {
+public class LC_0004 {
 
     public static void main(String[] args) {
         

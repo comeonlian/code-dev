@@ -1,4 +1,4 @@
-package com.leolian.leetcode.questionbank.algorithm.page01;
+package com.leolian.leetcode.questionbank.algorithm.medium;
 
 /**
  * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
@@ -10,7 +10,7 @@ package com.leolian.leetcode.questionbank.algorithm.page01;
  * 输入: "cbbd"
  * 输出: "bb"
  */
-public class LeetCode005 {
+public class LC_0005 {
 
     public static void main(String[] args) {
         
