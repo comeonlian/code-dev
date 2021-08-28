@@ -21,7 +21,20 @@ public class JZ_067 {
     public static void main(String[] args) {
         JZ_067 jz067 = new JZ_067();
 
-        
+        int target = 8;
+        System.out.println(jz067.cutRope(target));
+    }
+
+    public int cutRope(int target) {
+        if (target < 5) {
+            return target;
+        }
+        int max = 1;
+        while (target >= 5) {
+            target = target - 3;
+            max = max * 3;
+        }
+        return max * target;
     }
 
 }
