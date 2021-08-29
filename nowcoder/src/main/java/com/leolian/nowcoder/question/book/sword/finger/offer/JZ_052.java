@@ -27,8 +27,17 @@ public class JZ_052 {
             return false;
         }
         int index1 = 0, index2 = 0;
-        while (index1 < str.length() && index2 < pattern.length()) {
-            
+        int strLen = str.length(), patternLen = pattern.length();
+        char ch1, ch2;
+        while (index1 < strLen && index2 < patternLen) {
+            ch1 = str.charAt(index1);
+            ch2 = pattern.charAt(index2);
+            if (ch1 == ch2 || ch2 == '.') {
+                index1++;
+                index2++;
+                continue;
+            }
+
         }
         return true;
     }
