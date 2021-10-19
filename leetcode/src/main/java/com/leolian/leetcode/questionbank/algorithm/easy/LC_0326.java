@@ -34,7 +34,6 @@ public class LC_0326 {
         System.out.println(lc0326.isPowerOfThree(n));
     }
 
-    // 1、用这个数n不断循环除以3
     public boolean isPowerOfThree(int n) {
         while ((n > 0) && (n % 3 == 0)) {
             n /= 3;
