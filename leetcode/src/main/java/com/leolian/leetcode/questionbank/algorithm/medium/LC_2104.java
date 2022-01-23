@@ -1,7 +1,5 @@
 package com.leolian.leetcode.questionbank.algorithm.medium;
 
-import org.omg.CORBA.MARSHAL;
-
 /**
  * LC 2104 : 子数组范围和
  * 给你一个整数数组 nums 。nums 中，子数组的 范围 是子数组中最大元素和最小元素的差值。
