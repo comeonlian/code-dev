@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-# @FileName  : LC0043.py
+# @FileName  : lc_0043.py
 # @Time      : 2022/3/21 17:29
 # @Author    : liang.lian
 
@@ -24,6 +24,7 @@ num1 和 num2 都不包含任何前导零，除了数字0本身。
 输出: "56088"
 """
 
+
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
         if num1 == '0' or num2 == '0':
@@ -39,7 +40,7 @@ class Solution:
             sum_res = self.add(sum_res, multi_res)
             power += 1
         return sum_res
-    
+
     def multi(self, num1: str, num2: str) -> str:
         result = []
         num1_r = ''.join(reversed(num1))
@@ -57,7 +58,7 @@ class Solution:
         if carry != 0:
             result.insert(0, str(carry))
         return ''.join(result)
-    
+
     def add(self, num1: str, num2: str) -> str:
         result = []
         num1_r, num2_r = ''.join(reversed(num1)), ''.join(reversed(num2))
@@ -79,6 +80,7 @@ class Solution:
         if carry != 0:
             result.insert(0, str(carry))
         return ''.join(result)
+
 
 """
 执行用时：340 ms, 在所有 Python3 提交中击败了5.44%的用户

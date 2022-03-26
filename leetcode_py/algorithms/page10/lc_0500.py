@@ -3,7 +3,7 @@
 
 # @Time    : 2022/3/20 18:27
 # @Author  : lianliang
-# @File    : LC0500.py
+# @File    : lc_0500.py
 
 """
 LC 500 : 键盘行
@@ -32,10 +32,10 @@ https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/keyboard.png
 words[i] 由英文字母（小写和大写字母）组成
 """
 
-
 first_line = {x for x in 'qwertyuiop'}
 second_line = {x for x in 'asdfghjkl'}
 third_line = {x for x in 'zxcvbnm'}
+
 
 class Solution(object):
     def findWords(self, words):
@@ -54,7 +54,8 @@ class Solution(object):
                 result.append(s)
         return result
 
-words = ["Hello","Alaska","Dad","Peace"]
+
+words = ["Hello", "Alaska", "Dad", "Peace"]
 solution = Solution()
 print(solution.findWords(words))
 

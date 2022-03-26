@@ -3,4 +3,4 @@
 
 # @Time    : 2022/3/12 12:34
 # @Author  : lianliang
-# @File    : LC0020.py
+# @File    : lc_0020.py
