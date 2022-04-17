@@ -3,7 +3,7 @@
 
 # @Time    : 2022/4/16 16:15
 # @Author  : lianliang
-# @File    : par_checker.py
+# @File    : pro_3_6_par_checker.py
 
 from chapter03.stack_code import Stack
 

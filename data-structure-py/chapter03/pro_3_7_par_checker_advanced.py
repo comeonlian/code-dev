@@ -3,13 +3,14 @@
 
 # @Time    : 2022/4/16 16:29
 # @Author  : lianliang
-# @File    : par_checker_advanced.py
+# @File    : pro_3_7_par_checker_advanced.py
 
 from chapter03.stack_code import Stack
 
 '''
 栈实现多括号匹配
 '''
+
 
 
 def par_checked(s: str) -> bool:
