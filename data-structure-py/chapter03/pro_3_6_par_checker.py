@@ -5,7 +5,7 @@
 # @Author  : lianliang
 # @File    : pro_3_6_par_checker.py
 
-from chapter03.stack_code import Stack
+from chapter03.def_stack import Stack
 
 '''
 栈实现小括号匹配

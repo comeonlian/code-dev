@@ -5,7 +5,7 @@
 # @Author  : lianliang
 # @File    : pro_3_7_par_checker_advanced.py
 
-from chapter03.stack_code import Stack
+from chapter03.def_stack import Stack
 
 '''
 栈实现多括号匹配

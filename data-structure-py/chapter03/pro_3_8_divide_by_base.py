@@ -5,7 +5,7 @@
 # @Author  : lianliang
 # @File    : pro_3_8_divide_by_base.py
 
-from chapter03.stack_code import Stack
+from chapter03.def_stack import Stack
 
 '''
 十进制转其他进制

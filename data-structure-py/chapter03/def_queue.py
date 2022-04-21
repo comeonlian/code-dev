@@ -3,7 +3,7 @@
 
 # @Time    : 2022/4/20 22:03
 # @Author  : lianliang
-# @File    : queue_code.py
+# @File    : def_queue.py
 
 class Queue:
     def __init__(self):

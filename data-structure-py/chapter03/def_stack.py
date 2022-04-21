@@ -3,7 +3,7 @@
 
 # @Time    : 2022/4/16 15:43
 # @Author  : lianliang
-# @File    : stack_code.py
+# @File    : def_stack.py
 
 class Stack:
     def __init__(self):

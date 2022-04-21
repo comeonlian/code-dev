@@ -5,7 +5,7 @@
 # @Author  : lianliang
 # @File    : pro_3_9_infix_to_postfix.py
 
-from chapter03.stack_code import Stack
+from chapter03.def_stack import Stack
 
 '''
 中缀表达式转后缀表达式
