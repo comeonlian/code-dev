@@ -23,7 +23,7 @@ class Deque:
         
     def remove_front(self):    
         self.len -= 1
-        self.items.pop()
+        return self.items.pop()
     
     def add_rear(self, item):
         self.len += 1
@@ -31,5 +31,5 @@ class Deque:
     
     def remove_rear(self):
         self.len -= 1
-        self.items.pop(0)
+        return self.items.pop(0)
     
