@@ -5,7 +5,7 @@
 # @Author  : lianliang
 # @File    : pro_3_13_hot_potato.py
 
-from queue_code import Queue
+from def_queue import Queue
 """
 模拟：烫手山芋
 在这个游戏中孩子们围成一个圈，并尽可能快的将一个山芋递给旁边的孩子。在某一个时间，动作结束，有山芋的孩子从圈中移除。
