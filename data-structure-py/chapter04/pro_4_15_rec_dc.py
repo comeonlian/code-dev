@@ -20,5 +20,4 @@ def rec_dc(coin_value_list, change, known_results):
                 known_results[change] = min_coins
     return min_coins
 
-print([0] * 63)
 print(rec_dc([1, 5, 10, 25], 63, [0] * 64))
