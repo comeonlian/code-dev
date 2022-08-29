@@ -144,6 +144,10 @@ class UrlparseView(object):
             try:
                 # 解码
                 result = urlparse_util.decode(data)
+                
+                flag, json_obj = self.is_json_str(result)
+                if flag is True:
+                    result = json.dumps(json_obj, indent=2)
 
                 # 输出到界面
                 self._result_data_text.delete(1.0, END)
@@ -155,6 +159,13 @@ class UrlparseView(object):
                 self._write_log_to_text("ERROR: 字符串解码失败！")
         else:
             self._write_log_to_text("WARN: 请输入需要转换的字符串！")
+
+    def is_json_str(self, json_str):
+        try:
+            json_obj = json.loads(json_str)
+            return True, json_obj
+        except ValueError:
+            return False,None
 
 
 def view_start():
