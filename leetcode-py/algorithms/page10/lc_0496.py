@@ -3,7 +3,7 @@
 
 # @Time    : 2022/3/20 18:27
 # @Author  : lianliang
-# @File    : lc_0480.py
+# @File    : lc_0496.py
 
 """
 LC 496 : 下一个更大元素 I
