@@ -1,5 +1,7 @@
 package com.leolian.leetcode.questionbank.algorithm.page20;
 
+import java.util.Arrays;
+
 /**
  * LC 953 : 验证外星语词典
  * 某种外星语也使用英文小写字母，但可能顺序 order 不同。字母表的顺序（order）是一些小写字母的排列。
@@ -31,14 +33,83 @@ public class LC_0953 {
 
     public static void main(String[] args) {
         LC_0953 lc0953 = new LC_0953();
-
-        String[] words = new String[]{"hello", "leetcode"};
-        String order = "hlabcdefgijkmnopqrstuvwxyz";
+        
+        String[] words = new String[]{"zirqhpfscx","zrmvtxgelh","vokopzrtc","nugfyso","rzdmvyf","vhvqzkfqis","dvbkppw","ttfwryy","dodpbbkp","akycwwcdog"};
+        String order = "khjzlicrmunogwbpqdetasyfvx";
         System.out.println(lc0953.isAlienSorted(words, order));
     }
 
     public boolean isAlienSorted(String[] words, String order) {
-        return false;
+        if (words == null || words.length == 0) {
+            return false;
+        }
+        if (words.length == 1) {
+            return true;
+        }
+        int maxWordLength = 0;
+        int maxWordIndex = -1;
+        String maxWord = null;
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (word.length() > maxWordLength) {
+                maxWordLength = word.length();
+                maxWordIndex = i;
+                maxWord = word;
+            }
+        } 
+
+        for (int i = 0; i < maxWordLength; i++) {
+            char ch = maxWord.charAt(i);
+            boolean hasRepeat = false;
+            
+            for (int j = 0; j < words.length; j++) {
+                if (j == maxWordIndex) {
+                    continue;
+                }
+                String word = words[j];
+                if (word == null || word.length() == 0) {
+                    continue;
+                }
+                char tmpCh = word.charAt(0);
+                if (ch == tmpCh) {
+                    words[j] = word.substring(1);
+                    hasRepeat = true;
+                }
+            }
+            if (hasRepeat) {
+                words[maxWordIndex] = words[maxWordIndex].substring(1);
+            } else {
+                break;
+            } 
+        }
+        System.out.println(Arrays.toString(words));
+        for (int i = 0; i < 1; i++) {
+            int leftPos = Integer.MIN_VALUE;
+            int curPos = Integer.MIN_VALUE;
+            for (String word : words) {
+                int pos = 0;
+                if (i < word.length()) {
+                    pos = order.indexOf(word.charAt(i));
+                }
+                if (leftPos == Integer.MIN_VALUE) {
+                    if (i < word.length()) {
+                        leftPos = pos;
+                    } else {
+                        leftPos = -1; // 空白符
+                    }
+                } else {
+                    if (i < word.length()) {
+                        curPos = pos;
+                    } else {
+                        curPos = -1; // 空白符
+                    }
+                    if (leftPos > curPos) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 }
