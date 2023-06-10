@@ -1,6 +1,11 @@
 package com.leolian.leetcode.questionbank.algorithm.page20;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * LC 953 : 验证外星语词典
@@ -33,9 +38,15 @@ public class LC_0953 {
 
     public static void main(String[] args) {
         LC_0953 lc0953 = new LC_0953();
-        
-        String[] words = new String[]{"zirqhpfscx","zrmvtxgelh","vokopzrtc","nugfyso","rzdmvyf","vhvqzkfqis","dvbkppw","ttfwryy","dodpbbkp","akycwwcdog"};
-        String order = "khjzlicrmunogwbpqdetasyfvx";
+
+        // "hello","leetcode" "hlabcdefgijkmnopqrstuvwxyz" -> true
+        // "word","world","row" "worldabcefghijkmnpqstuvxyz" -> false
+        // "apple","app" "abcdefghijklmnopqrstuvwxyz" -> false
+        // "zirqhpfscx", "zrmvtxgelh", "vokopzrtc", "nugfyso", "rzdmvyf", "vhvqzkfqis", "dvbkppw", "ttfwryy", "dodpbbkp", "akycwwcdog" "khjzlicrmunogwbpqdetasyfvx" -> false
+        // "pkdxziwmu","vmtxaepejwpehfczt","oyzcpokwvfzafahij","xmxwdyfsba","abdqtfznnlbbd","fpqtqynjbajajundew","qmaetdtagqzvlrigeh","mqwqptasdmfd","lnzxpmbe","nnuhbzougbew" "bhpldvigsquneymtrcjwzfxako" -> false
+        // "z","apple","app" "zabcdefghijklmnopqrstuvwxy" -> false
+        String[] words = new String[]{"z","apple","app"};
+        String order = "zabcdefghijklmnopqrstuvwxy";
         System.out.println(lc0953.isAlienSorted(words, order));
     }
 
@@ -46,70 +57,87 @@ public class LC_0953 {
         if (words.length == 1) {
             return true;
         }
+        // 计算数组中最长的单词
         int maxWordLength = 0;
-        int maxWordIndex = -1;
-        String maxWord = null;
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
             if (word.length() > maxWordLength) {
                 maxWordLength = word.length();
-                maxWordIndex = i;
-                maxWord = word;
             }
-        } 
+        }
+
+        List<String> wordList = null;
 
         for (int i = 0; i < maxWordLength; i++) {
-            char ch = maxWord.charAt(i);
-            boolean hasRepeat = false;
-            
-            for (int j = 0; j < words.length; j++) {
-                if (j == maxWordIndex) {
-                    continue;
-                }
-                String word = words[j];
-                if (word == null || word.length() == 0) {
-                    continue;
-                }
-                char tmpCh = word.charAt(0);
-                if (ch == tmpCh) {
-                    words[j] = word.substring(1);
-                    hasRepeat = true;
-                }
+            if (i == 0) {
+                wordList = Arrays.stream(words).collect(Collectors.toList());
             }
-            if (hasRepeat) {
-                words[maxWordIndex] = words[maxWordIndex].substring(1);
-            } else {
-                break;
-            } 
-        }
-        System.out.println(Arrays.toString(words));
-        for (int i = 0; i < 1; i++) {
-            int leftPos = Integer.MIN_VALUE;
-            int curPos = Integer.MIN_VALUE;
-            for (String word : words) {
-                int pos = 0;
-                if (i < word.length()) {
-                    pos = order.indexOf(word.charAt(i));
+
+            ArrayList<Integer> indexList = new ArrayList<>();
+            HashMap<Character, TreeSet<Integer>> map = new HashMap<>();
+            for (int j = 0; j < wordList.size(); j++) {
+                String word = wordList.get(j);
+                if (i >= word.length()) {
+                    indexList.add(-1);
+                    continue;
                 }
-                if (leftPos == Integer.MIN_VALUE) {
-                    if (i < word.length()) {
-                        leftPos = pos;
-                    } else {
-                        leftPos = -1; // 空白符
-                    }
+                char ch = word.charAt(i);
+                if (map.containsKey(ch)) {
+                    map.get(ch).add(j);
                 } else {
-                    if (i < word.length()) {
-                        curPos = pos;
-                    } else {
-                        curPos = -1; // 空白符
-                    }
-                    if (leftPos > curPos) {
-                        return false;
-                    }
+                    TreeSet<Integer> treeSet = new TreeSet<>();
+                    treeSet.add(j);
+                    map.put(ch, treeSet);
                 }
+                int indexOf = order.indexOf(ch);
+                indexList.add(indexOf);
+            }
+            
+            boolean check = checkOrder(indexList);
+            if (!check) {
+                return false;
+            }
+
+            TreeSet<Integer> treeSet = new TreeSet<>();
+            map.forEach((k, v) -> {
+                if (v.size() > 1) {
+                    treeSet.addAll(v);
+                }
+            });
+
+            if (treeSet.isEmpty()) {
+                break;
+            }
+
+            ArrayList<String> wordListTemp = new ArrayList<>();
+            for (Integer index : treeSet) {
+                wordListTemp.add(wordList.get(index));
+            }
+            
+            wordList.clear();
+            wordList.addAll(wordListTemp);
+        }
+
+        return true;
+    }
+
+    private boolean checkOrder(ArrayList<Integer> indexList) {
+        int left;
+        int right;
+        for (int i = 1; i < indexList.size(); i++) {
+            left = indexList.get(i - 1);
+            right = indexList.get(i);
+            if (left > right) {
+                return false;
             }
         }
         return true;
     }
+    
+    /*
+    执行用时：5 ms, 在所有 Java 提交中击败了4.23%的用户
+    内存消耗：40.5 MB, 在所有 Java 提交中击败了16.71%的用户
+    通过测试用例：125 / 125
+    */
 
 }
