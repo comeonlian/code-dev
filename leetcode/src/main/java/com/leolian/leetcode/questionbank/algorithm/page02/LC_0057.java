@@ -2,6 +2,8 @@ package com.leolian.leetcode.questionbank.algorithm.page02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * LC 57 : 插入区间
@@ -41,12 +43,13 @@ public class LC_0057 {
     public static void main(String[] args) {
         LC_0057 lc0055 = new LC_0057();
 
-        // {1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}
-        // {1,3},{6,9}
+        // {1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}  {4,8}
+        // {1,3},{6,9}   {2,5}
+        // {1, 5}   {0, 3}
         int[][] intervals = {
-                {1,5}
+                {1, 5}
         };
-        int[] newInterval = {2, 7};
+        int[] newInterval = {6, 8};
         int[][] result = lc0055.insert(intervals, newInterval);
         for (int i = 0; i < result.length; i++) {
             System.out.printf(Arrays.toString(result[i]) + " ");
@@ -59,45 +62,95 @@ public class LC_0057 {
             result[0] = newInterval;
             return result;
         }
+
+        Node head = new Node(-1, null);
+        Node current = head;
+        for (int[] interval : intervals) {
+            Node start = new Node(interval[0], Flag.START);
+            Node end = new Node(interval[1], Flag.END);
+            start.next = end;
+
+            current.next = start;
+            current = end;
+        }
+
         int newStart = newInterval[0];
         int newEnd = newInterval[1];
-        int startIndex = -1;
-        int endIndex = -1;
-        for (int i = 0; i < intervals.length; i++) {
-            int start = intervals[i][0];
-            int end = intervals[i][1];
 
-            if (start <= newStart && newStart <= end) {
-                startIndex = i;
+        Node pre = head;
+        current = head.next;
+        boolean insert = false;
+        while (current != null) {
+            if (newStart <= current.value) {
+                Node newStartNode = new Node(newStart, Flag.NEW_START);
+                pre.next = newStartNode;
+                newStartNode.next = current;
+                insert = true;
+                break;
             }
-            if (start <= newEnd && newEnd <= end) {
-                endIndex = i;
-            }
+            pre = current;
+            current = current.next;
         }
-        boolean merge = startIndex != endIndex;
+        if (!insert) {
+            pre.next = new Node(newStart, Flag.NEW_START);
+        }
+        
+        pre = head;
+        current = head.next;
+        boolean insertEnd = false;
+        while (current != null) {
+            if (newEnd < current.value) {
+                Node newEndNode = new Node(newEnd, Flag.NEW_END);
+                pre.next = newEndNode;
+                newEndNode.next = current;
+                insertEnd = true;
+                break;
+            }
+            pre = current;
+            current = current.next;
+        }
+        if (!insertEnd) {
+            pre.next = new Node(newEnd, Flag.NEW_END);
+        }
+
         ArrayList<int[]> list = new ArrayList<>();
-        int start = -1;
-        for (int i = 0; i < intervals.length; i++) {
-            if (merge) {
-                if (startIndex <= i && i <= endIndex) {
-                    if (i == startIndex) {
-                        start = Math.min(newStart, intervals[i][0]);
+        EnumMap<Flag, AtomicInteger> map = new EnumMap<>(Flag.class);
+        current = head.next;
+        int start = Integer.MAX_VALUE;
+        int end = Integer.MIN_VALUE;
+        while (current != null) {
+            Flag flag = current.flag;
+            if (flag == Flag.START || flag == Flag.NEW_START) {
+                if (map.containsKey(flag)) {
+                    map.get(flag).incrementAndGet();
+                } else {
+                    map.put(flag, new AtomicInteger(1));
+                }
+                start = Math.min(start, current.value);
+            }
+            if (flag == Flag.END || flag == Flag.NEW_END) {
+                if (flag == Flag.END && map.containsKey(Flag.START)) {
+                    int count = map.get(Flag.START).decrementAndGet();
+                    if (count == 0) {
+                        map.remove(Flag.START);
                     }
-                    if (i == endIndex) {
-                        int[] interval = new int[]{start, Math.max(newEnd, intervals[i][1])};
-                        list.add(interval);
+                }
+                if (flag == Flag.NEW_END && map.containsKey(Flag.NEW_START)) {
+                    int count = map.get(Flag.NEW_START).decrementAndGet();
+                    if (count == 0) {
+                        map.remove(Flag.NEW_START);
                     }
-                    continue;
+                }
+                end = Math.max(end, current.value);
+                if (map.size() == 0) {
+                    list.add(new int[]{start, end});
+                    start = Integer.MAX_VALUE;
+                    end = Integer.MIN_VALUE;
                 }
             }
-            if (i == startIndex) {
-                int[] interval = new int[]{Math.min(newStart, intervals[i][0]),
-                        Math.max(newEnd, intervals[i][1])};
-                list.add(interval);
-                continue;
-            }
-            list.add(intervals[i]);
+            current = current.next;
         }
+
         int[][] result = new int[list.size()][2];
         for (int i = 0; i < list.size(); i++) {
             result[i] = list.get(i);
@@ -105,7 +158,29 @@ public class LC_0057 {
         return result;
     }
 
-    /*
+    public static class Node {
+        int value;
+        Flag flag;
+        Node next;
 
+        public Node() {
+        }
+
+        public Node(int value, Flag flag) {
+            this.value = value;
+            this.flag = flag;
+        }
+    }
+
+    public enum Flag {
+        START,
+        END,
+        NEW_START,
+        NEW_END;
+    }
+
+    /*
+    执行用时：2 ms, 在所有 Java 提交中击败了25.58%的用户
+    内存消耗：42.9 MB, 在所有 Java 提交中击败了59.54%的用户
      */
 }
