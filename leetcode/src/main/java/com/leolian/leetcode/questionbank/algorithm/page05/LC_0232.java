@@ -40,45 +40,70 @@ public class LC_0232 {
         MyQueue queue = new MyQueue();
         queue.push(1);
         queue.push(6);
-        queue.push(3);
-        System.out.println(queue.pop());
         System.out.println(queue.peek());
+        System.out.println(queue.pop());
+        System.out.println(queue.pop());
         System.out.println(queue.empty());
     }
 
     static class MyQueue {
         Stack<Integer> stack1 = new Stack<>();
         Stack<Integer> stack2 = new Stack<>();
-        int len;
+        volatile int length;
+        /**
+         * 两个栈的顺序，true为正序；false为逆序
+         */
+        volatile boolean order;
 
         public MyQueue() {
-
+            this.order = true;
         }
 
-        public void push(int x) {
-            stack1.push(x);
-            len++;
-        }
-
-        public int pop() {
-            
-            return 0;
-        }
-
-        public int peek() {
-            int length = 0;
-            while (!stack1.empty()) {
-                length++;
-                Integer peek = stack1.peek();
-                if (length == len) {
-                    return peek;
-                }
+        public synchronized void push(int x) {
+            length += 1;
+            if (order) {
+                stack1.push(x);
+                return;
             }
-            return 0;
+            while (!stack2.empty()) {
+                stack1.push(stack2.pop());
+            }
+            stack1.push(x);
+            order = true;
         }
 
-        public boolean empty() {
-            return len == 0;
+        public synchronized int pop() {
+            if (empty()) {
+                return 0;
+            }
+            length -= 1;
+            if (!order) {
+                return stack2.pop();
+            }
+            while (!stack1.empty()) {
+                stack2.push(stack1.pop());
+            }
+            order = false;
+            return stack2.pop();
+        }
+
+        public synchronized int peek() {
+            if (empty()) {
+                return 0;
+            }
+            if (!order) {
+                return stack2.peek();
+            }
+            while (!stack1.empty()) {
+                stack2.push(stack1.pop());
+            }
+            order = false;
+            return stack2.peek();
+        }
+
+        public synchronized boolean empty() {
+            System.out.println(length);
+            return length == 0;
         }
     }
 }
