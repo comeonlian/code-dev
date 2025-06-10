@@ -2,33 +2,38 @@ package com.leolian.exceltodb.service;
 
 import com.leolian.exceltodb.dao.ExcelDao;
 import com.leolian.exceltodb.dao.UserMessageDao;
+import com.leolian.exceltodb.entity.ContactStatus;
 import com.leolian.exceltodb.entity.UserMessage;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Administrator
  * @description:
  * @date 2025/6/5 20:54
  */
-public class AiqichaExcelToDatabaseService extends AbstractExcelToDatabaseService {
-
+public class AiqichaExcelFilterToDatabaseService extends AbstractExcelToDatabaseService{
+    
     // 修改
-    public String sourceFile = "20250610115505.xlsx";
+    public String sourceFile = "20250610144004.xlsx";
 
     public String queryCondition = "化妆品；健康管理；美容服务；无商标";
-
+    
     public static void main(String[] args) {
         UserMessageDao userMessageDao = new UserMessageDao();
         ExcelDao excelDao = new ExcelDao();
-
-        AiqichaExcelToDatabaseService service = new AiqichaExcelToDatabaseService();
+        
+        AiqichaExcelFilterToDatabaseService service = new AiqichaExcelFilterToDatabaseService();
         try {
+            Set<String> companyNameList = userMessageDao.queryDistinctCompanyNameList();
+            
             XSSFSheet rSheet = excelDao.getXSSFSheet(service.sourceFileDir + service.sourceFile);
             XSSFRow row = null;
             List<UserMessage> messageList = Lists.newArrayList();
@@ -37,6 +42,10 @@ public class AiqichaExcelToDatabaseService extends AbstractExcelToDatabaseServic
 
                 // 公司名称 企业法人 推荐号码 号码检测结果 注册资本 成立日期 公司地址 所属行业 邮箱 QQ
                 String companyName = row.getCell(0).getStringCellValue().trim();
+                if (companyNameList.contains(companyName)) { // 执行过滤
+                    continue;
+                }
+                
                 String personName = row.getCell(1).getStringCellValue().trim();
 
                 String registerCapital = row.getCell(4).getStringCellValue().trim();
@@ -84,5 +93,5 @@ public class AiqichaExcelToDatabaseService extends AbstractExcelToDatabaseServic
             e.printStackTrace();
         }
     }
-
+    
 }

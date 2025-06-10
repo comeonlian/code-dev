@@ -17,10 +17,12 @@ public class UserMessage {
     private int contactStatus; //手机号状态
     private String qqNumber; //QQ号
     private String email; //邮箱
+    private String address; //地址
     private String registerCapital; //注册资本
     private Date registerDate; //注册日期
-    private String address; //地址
+    private String queryCondition; //查询条件
     private String remark; //备注
+    private Date createDate; //记录时间
 
     public int getId() {
         return id;
@@ -124,6 +126,22 @@ public class UserMessage {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getQueryCondition() {
+        return queryCondition;
+    }
+
+    public void setQueryCondition(String queryCondition) {
+        this.queryCondition = queryCondition;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Override
